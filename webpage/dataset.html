@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>
+        Open-GMOT: Open-Vocabulary Generic Multiple Object Tracking with Motion-Appearance Cost (MAC) SORT
+    </title>
+    <meta content="Open-GMOT" property="og:title" />
+    <meta content="A typical pipeline for multi-object tracking (MOT) is to use a detector for object localization, and following re-identification (re-ID) for object association. This pipeline is partially motivated by recent progress in both object detec- tion and re-ID, and partially motivated by biases in existing tracking datasets, where most objects tend to have distin- guishing appearance and re-ID models are sufficient for es- tablishing associations. In response to such bias, we would like to re-emphasize that methods for multi-object tracking should also work when object appearance is not sufficiently discriminative. To this end, we propose a large-scale dataset for multi-human tracking, where humans have similar appearance, diverse motion and extreme articulation. As the dataset contains mostly group dancing videos, we name it “DanceTrack”. We expect DanceTrack to provide a better platform to develop more MOT algorithms that rely less on visual discrimination and depend more on motion analysis. We benchmark several state-of-the-art trackers on our dataset and observe a significant performance drop on DanceTrack when compared against existing benchmarks." name="description" property="og:description" />
+    <meta content="https://github.com/DanceTrack" property="og:url" />
+    <meta name="keywords" content="Generic Multi-Object Tracking in Uniform Appearance and Diverse Motion">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+    <script defer src="js/fontawesome.all.min.js"></script>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+
+        caption {
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .checkmark {
+            color: green;
+        }
+        .xmark {
+            color: red;
+        }
+
+        .asparagus30 { background-color: #88B04B; } /* Replace with actual color */
+        .almond30 { background-color: #EFDECD; } /* Replace with actual color */
+        .almond50 { background-color: #e6ceb6; }
+        .babyblue20 { background-color: #9adaf8; } /* Replace with actual color */
+        .babyblue50 { background-color: #77c7ec; }
+        .aureolin20 { background-color: #FDEE00; }
+        .aureolin50 { background-color: #ebdd14; } /* Replace with actual color */
+
+        .image-container {
+            display: flex;
+        }
+
+        /* Create three equal columns that sits next to each other */
+        .image-content {
+            margin: 10px;
+            flex: 1;
+            text-align: center !important;
+        }
+
+        .pre-container {
+            overflow: auto; /* Enable scrolling if the content overflows */
+            text-align: left;
+            white-space: pre-wrap; /* Allow long lines to wrap within the container */
+            width: calc(100%/2 - 20px); /* Prevent the <pre> from exceeding the parent's width */
+            max-height: 100%; /* Prevent the <pre> from exceeding the parent's height */
+        }
+
+        .image-json-container {
+            display: flex;
+            height: 220px;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px 0 0 0;
+        }
+
+        .image-dataset {
+            max-height: 100%;
+            object-fit: cover;
+            padding: 0 0 12px 0;
+        }
+
+        .json-dataset {
+            flex-grow: 1; /* Allow the text to take up remaining space */
+            overflow: auto; /* Add overflow property for text scrolling if needed */
+            text-align: left;
+            height: 96%;
+            white-space: pre-line; /* Preserve whitespace in the <pre> tag */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <h3>Open-GMOT demo website</h3>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="result.html">Result</a></li>
+            <li><a href="code.html">Code</a></li>
+            <li><a href="dataset.html">Dataset</a></li>
+        </ul>
+        <script>
+            // Get the current URL
+            var currentURL = window.location.href;
+        
+            // Select all navigation links
+            var navLinks = document.querySelectorAll('.navbar a');
+        
+            // Loop through the links to find the active one
+            for (var i = 0; i < navLinks.length; i++) {
+                var linkURL = navLinks[i].href;
+        
+                // Check if the current URL contains the link's URL
+                if (currentURL.indexOf(linkURL) !== -1) {
+                    // Add the "active" class to the link
+                    navLinks[i].classList.add('active');
+                }
+            }
+        </script>
+    </div>
+
+    <div class="n-article">
+        <h2 class="dataset" id="dataset">
+           Dataset
+        </h2>
+        <table>
+            <caption>Comparison of <strong>existing datasets</strong> of SOT, MOT, GSOT, GMOT. "#" represents the quantity of the respective items. Cat., Vid., NLP denote Categories, Videos, and Textual Language Descriptions.</caption>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th><strong>Datasets</strong></th>
+                    <th><strong>NLP</strong></th>
+                    <th>#<strong>Cat.</strong></th>
+                    <th>#<strong>Vid.</strong></th>
+                    <th>#<strong>Frames</strong></th>
+                    <th>#<strong>Tracks</strong></th>
+                    <th>#<strong>Boxs</strong></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- SOT Section -->
+                <tr class="almond30">
+                    <td rowspan="5">SOT</td>
+                    <td>OTB2013~[1]</td>
+                    <td class="xmark">✖</td>
+                    <td>10</td>
+                    <td>51</td>
+                    <td>29K</td>
+                    <td>51</td>
+                    <td>29K</td>
+                </tr>
+                <tr class="almond30">
+                    <td>VOT2017~[2]</td>
+                    <td class="xmark">✖</td>
+                    <td>24</td>
+                    <td>60</td>
+                    <td>21K</td>
+                    <td>60</td>
+                    <td>21K</td>
+                </tr>
+                <tr class="almond30">
+                    <td>TrackingNet~[3]</td>
+                    <td class="xmark">✖</td>
+                    <td>21</td>
+                    <td>31K</td>
+                    <td>14M</td>
+                    <td>31K</td>
+                    <td>14M</td>
+                </tr>
+                <tr class="almond50">
+                    <td>LaSOT~[4]</td>
+                    <td class="checkmark">✔</td>
+                    <td>70</td>
+                    <td>1.4K</td>
+                    <td>3.52M</td>
+                    <td>1.4K</td>
+                    <td>3.52M</td>
+                </tr>
+                <tr class="almond50">
+                    <td>TNL2K~[5]</td>
+                    <td class="checkmark">✔</td>
+                    <td>-</td>
+                    <td>2K</td>
+                    <td>1.24M</td>
+                    <td>2K</td>
+                    <td>1.24M</td>
+                </tr>
+                <!-- GSOT Section -->
+                <tr class="asparagus30">
+                    <td rowspan="2">GSOT</td>
+                    <td>GOT-10~[6]</td>
+                    <td class="xmark">✖</td>
+                    <td>563</td>
+                    <td>10K</td>
+                    <td>1.5M</td>
+                    <td>10K</td>
+                    <td>1.5M</td>
+                </tr>
+                <tr class="asparagus30">
+                    <td>Fish~[7]</td>
+                    <td class="xmark">✖</td>
+                    <td>1</td>
+                    <td>1.6K</td>
+                    <td>527.2K</td>
+                    <td>8.25K</td>
+                    <td>516K</td>
+                </tr>
+                <!-- MOT Section -->
+                <tr class="babyblue20">
+                    <td rowspan="7">MOT</td>
+                    <td>MOT17~[8]</td>
+                    <td class="xmark">✖</td>
+                    <td>1</td>
+                    <td>14</td>
+                    <td>11.2K</td>
+                    <td>1.3K</td>
+                    <td>0.3M</td>
+                </tr>
+                <tr class="babyblue20">
+                    <td>MOT20~[9]</td>
+                    <td class="xmark">✖</td>
+                    <td>1</td>
+                    <td>8</td>
+                    <td>13.41K</td>
+                    <td>3.45K</td>
+                    <td>1.65M</td>
+                </tr>
+                <tr class="babyblue20">
+                    <td>Omni-MOT~[10]</td>
+                    <td class="xmark">✖</td>
+                    <td>1</td>
+                    <td>-</td>
+                    <td>14M+</td>
+                    <td>250K</td>
+                    <td>110M</td>
+                </tr>
+                <tr class="babyblue20">
+                    <td>DanceTrack~[11]</td>
+                    <td class="xmark">✖</td>
+                    <td>1</td>
+                    <td>100</td>
+                    <td>105K</td>
+                    <td>990</td>
+                    <td>-</td>
+                </tr>
+                <tr class="babyblue20">
+                    <td>TAO~[12]</td>
+                    <td class="xmark">✖</td>
+                    <td>833</td>
+                    <td>2.9K</td>
+                    <td>2.6M</td>
+                    <td>17.2K</td>
+                    <td>333K</td>
+                </tr>
+                <tr class="babyblue20">
+                    <td>SportMOT~[13]</td>
+                    <td class="xmark">✖</td>
+                    <td>1</td>
+                    <td>240</td>
+                    <td>150K</td>
+                    <td>3.4K</td>
+                    <td>1.62M</td>
+                </tr>
+                <tr class="babyblue50">
+                    <td>Refer-KITTI~[14]</td>
+                    <td class="checkmark">✔</td>
+                    <td>2</td>
+                    <td>18</td>
+                    <td>6.65K</td>
+                    <td>637</td>
+                    <td>28.72K</td>
+                </tr>
+                <!-- GMOT Section -->
+                <tr class="aureolin20">
+                    <td rowspan="4">GMOT</td>
+                    <td>AnimalTrack~[15]</td>
+                    <td class="xmark">✖</td>
+                    <td>10</td>
+                    <td>58</td>
+                    <td>24.7K</td>
+                    <td>1.92K</td>
+                    <td>429K</td>
+                </tr>
+                <tr class="aureolin20">
+                    <td>GMOT-40~[16]</td>
+                    <td class="xmark">✖</td>
+                    <td>10</td>
+                    <td>40</td>
+                    <td>9K</td>
+                    <td>2.02K</td>
+                    <td>256K</td>
+                </tr>
+                <tr class="aureolin50">
+                    <td style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">Refer-GMOT40 (Ours)</td>
+                    <td class="checkmark">✔</td>
+                    <td>10</td>
+                    <td>40</td>
+                    <td>9K</td>
+                    <td>2.02K</td>
+                    <td>256K</td>
+                </tr>
+                <tr class="aureolin50">
+                    <td style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">Refer-Animal (Ours)</td>
+                    <td class="checkmark">✔</td>
+                    <td>10</td>
+                    <td>58</td>
+                    <td>24.7K</td>
+                    <td>1.92K</td>
+                    <td>429K</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div>
+            <p>In our research, we improved two existing datasets for tracking multiple objects (GMOT-40 and AnimalTrack) by adding text descriptions. These enhanced datasets are named 'Refer-GMOT40' and 'Refer-Animal'.</p>
+            <p>'Refer-GMOT40' includes 40 videos covering 10 different types of real-world objects, with each type having 4 video sequences. 'Refer-Animal' contains 26 videos focusing on 10 common types of animals.</p>
+            <p>Each video in these datasets has been carefully annotated with several details:</p>
+            <ul>
+                <p style="font-weight: bold; font-style: italic;">For text label:</p> 
+                <li><strong>class_name:</strong> The general category of objects being tracked.</li>
+                <li><strong>class_synonyms:</strong> Other names or terms for the class.</li>
+                <li><strong>definition:</strong> A description of the objects being tracked.</li>
+                <li><strong>include_attributes:</strong> Characteristics of the tracked objects based on what can be seen.</li>
+                <li><strong>exclude_attributes:</strong> Characteristics that identify objects within the same category that are not being tracked.</li>
+                <li><strong>caption:</strong> Descriptions of the objects being tracked. For tracking all objects in a class, the caption is in the format: "Track [visible attributes] [class name]". When tracking a specific subset, the format is: "Track [visible attributes] [class name] while excluding [untracked attributes] [class name]".</li>
+                <li><strong>track_path:</strong> The exact tracking path is stored separately, following the standard format for multiple object tracking challenges.</li>
+                <p style="font-weight: bold; font-style: italic;">For track label:</p>
+                <p>each line will contain 9 elements, seperated by commas</p>
+                <p style="color: red;">&lt;frame&gt;, &lt;id&gt;, &lt;bb_left&gt;, &lt;bb_top&gt;, &lt;bb_width&gt;, &lt;bb_height&gt;, &lt;conf&gt;, &lt;x&gt;, &lt;y&gt;</p>
+                <li><b>frame:</b> index of frame in video sequence</li>
+                <li><b>id</b>: id of object accord to tracker</li>
+                <li><b>bb_left:</b> x coordinate for top left</li>
+                <li><b>bb_top:</b> y coordinate for top left</li>
+                <li><b>bb_width:</b> width of the box that contains object</li>
+                <li><b>bb_height:</b> height of the box that contains object</li>
+                <li><b>conf:</b> confidence score but get 1 as default</li>
+                <li><b>x:</b> get 1 as default</li>
+                <li><b>y:</b> get 1 as default</li>
+            </ul>
+            <p>The annotations are formatted in JSON, and we provide examples to illustrate how they are structured. This data, prepared by 4 annotators, will be shared publicly.</p>
+            <div class="image-container">
+                <pre class="pre-container" style="border-right: 1px solid #ffffff;">
+<b>Text label for referring with specific attributes</b>
+{
+    video: "",
+    label:{
+        class_name: "",
+        class_synonyms:[],
+        definition: "",
+        include_attributes: []
+        exclude_attributes: []
+        caption: "",
+        track_path: "",
+    }
+}
+                    </pre>
+    
+                    <pre class="pre-container">
+<b>Track label for associating objects' IDs through time</b>
+1, 1, xl, yt, w, h, 1, 1, 1
+1, 2, xl, yt, w, h, 1, 1, 1
+1, 3, xl, yt, w, h, 1, 1, 1
+2, 1, xl, yt, w, h, 1, 1, 1
+2, 2, xl, yt, w, h, 1, 1, 1
+2, 3, xl, yt, w, h, 1, 1, 1
+3, 1, xl, yt, w, h, 1, 1, 1
+3, 2, xl, yt, w, h, 1, 1, 1
+3, 3, xl, yt, w, h, 1, 1, 1
+                        </pre>
+               </div>
+        </div>
+        
+        <div class="image-json-container">
+            <img src="media/dataset-airplane.jpg" alt="Image 1" class="image-dataset">
+            <pre class="json-dataset">
+                <b>video:</b> "airplane-1",
+                <b>label:</b>{
+                    &nbsp;&nbsp;&nbsp;&nbsp;<b>class_name:</b> "helicopter",
+                    &nbsp;&nbsp;&nbsp;&nbsp;<b>class_synonyms:</b>["airplane", "aircraft", "jet", "plane"],
+                    &nbsp;&nbsp;&nbsp;&nbsp;<b>definition:</b> "a vehicle designed for flight in the air",
+                    &nbsp;&nbsp;&nbsp;&nbsp;<b>include_attributes:</b> ["black", "flying"],
+                    &nbsp;&nbsp;&nbsp;&nbsp;<b>exclude_attributes:</b> [],
+                    &nbsp;&nbsp;&nbsp;&nbsp;<b>caption:</b> "Track all black flying helicopters",
+                    &nbsp;&nbsp;&nbsp;&nbsp;<b>track_path:</b> "airplane_01.txt"
+                }
+            </pre>
+          </div>
+
+          <div class="image-json-container">
+            <img src="media/dataset-car.jpg" alt="Image 1" class="image-dataset">
+            <pre class="json-dataset">
+              <b>video:</b> "car-1"
+              <b>label:</b>{
+                  &nbsp;&nbsp;&nbsp;&nbsp;<b>class_name:</b> "car",
+                  &nbsp;&nbsp;&nbsp;&nbsp;<b>class_synonyms:</b> ["vehicle", "automobile", "auto", "transport", "transportation"],
+                  &nbsp;&nbsp;&nbsp;&nbsp;<b>definition:</b> "mechanical device designed for transportation, powered by an engine or motor, equipped by four wheels",
+                  &nbsp;&nbsp;&nbsp;&nbsp;<b>include_attributes: </b> ["white headlight", "oncoming traffic"],
+                  &nbsp;&nbsp;&nbsp;&nbsp;<b>exclude_attributes: </b> ["red taillight", "opposite traffic"],
+                  &nbsp;&nbsp;&nbsp;&nbsp;<b>caption: </b> "Track white headlight cars while excluding red taillight cars",
+                  &nbsp;&nbsp;&nbsp;&nbsp;<b>track_path:</b> "car_01.txt",
+              }
+            </pre>
+          </div>
+        </p>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p style="text-align: center;">&copy; Website for ECAI2024's submission</p>
+        </div>
+    </footer>
+</body>

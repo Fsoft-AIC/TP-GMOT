@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>
+        Open-GMOT: Open-Vocabulary Generic Multiple Object Tracking with Motion-Appearance Cost (MAC) SORT
+    </title>
+    <meta content="Open-GMOT" property="og:title" />
+    <meta content="A typical pipeline for multi-object tracking (MOT) is to use a detector for object localization, and following re-identification (re-ID) for object association. This pipeline is partially motivated by recent progress in both object detec- tion and re-ID, and partially motivated by biases in existing tracking datasets, where most objects tend to have distin- guishing appearance and re-ID models are sufficient for es- tablishing associations. In response to such bias, we would like to re-emphasize that methods for multi-object tracking should also work when object appearance is not sufficiently discriminative. To this end, we propose a large-scale dataset for multi-human tracking, where humans have similar appearance, diverse motion and extreme articulation. As the dataset contains mostly group dancing videos, we name it “DanceTrack”. We expect DanceTrack to provide a better platform to develop more MOT algorithms that rely less on visual discrimination and depend more on motion analysis. We benchmark several state-of-the-art trackers on our dataset and observe a significant performance drop on DanceTrack when compared against existing benchmarks." name="description" property="og:description" />
+    <meta content="https://github.com/DanceTrack" property="og:url" />
+    <meta name="keywords" content="Generic Multi-Object Tracking in Uniform Appearance and Diverse Motion">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+    <script defer src="js/fontawesome.all.min.js"></script>
+</head>
+
+<body>
+    <div class="navbar">
+        <h3>Open-GMOT demo website</h3>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="result.html">Result</a></li>
+            <li><a href="code.html">Code</a></li>
+            <li><a href="dataset.html">Dataset</a></li>
+        </ul>
+        <script>
+            // Get the current URL
+            var currentURL = window.location.href;
+        
+            // Select all navigation links
+            var navLinks = document.querySelectorAll('.navbar a');
+        
+            // Loop through the links to find the active one
+            for (var i = 0; i < navLinks.length; i++) {
+                var linkURL = navLinks[i].href;
+        
+                // Check if the current URL contains the link's URL
+                if (currentURL.indexOf(linkURL) !== -1) {
+                    // Add the "active" class to the link
+                    navLinks[i].classList.add('active');
+                }
+            }
+        </script>
+    </div>
+    
+
+    <div class="n-title">
+        <h1>
+            Open-GMOT: Open-Vocabulary Generic Multiple Object Tracking with Motion-Appearance Cost (MAC) SORT
+        </h1>
+    </div>
+    <div class="n-byline">
+        <div class="byline">
+            <ul class="authors">
+                <li>
+                    This work has been accepted in ECAI 2024
+                </li>
+            </ul>
+            <p style="text-align: center; color: slategray">PDF version will be published soon</p>
+            <!-- <ul class="authors affiliations">
+                <li>
+                    Anonymous
+                </li>
+            </ul> -->
+            <ul class="authors links">
+                <!-- <li>
+                    <a href="" target="_blank">
+                        <button disabled class="btn"><i class="fa fa-file-pdf"></i> Paper</button>
+                    </a>
+                </li>
+                <li>
+                    <a href="" target="_blank">
+                        <button disabled class="btn"><i class="fab fa-github"></i> Code</button>
+                    </a>
+                </li>
+                <li>
+                    <a href="" target="_blank">
+                        <button disabled class="btn"><i class="fab fa-github"></i> Dataset</button>
+                    </a>
+                </li>  -->
+                <li>
+                    <a href="https://www.youtube.com/playlist?list=PLSf1X3oNUW2se2U111HJ3wkSnZ7dcVGC_" target="_blank">
+                        <button class="btn"><i class="fab fa-youtube fa-w-18"></i> Demo</button>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+<!-- <iframe width="760" height="381" src="https://www.youtube.com/embed/IvxeJRg4rYg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+    
+    <div class="n-article">
+        <div class="n-page video">
+<!--             <video class="centered shadow" width="100%" autoplay muted loop playsinline>
+                <!-- t=0.001 is a hack to make iPhone show video thumbnail -->
+<!--                 <source src="https://www.youtube.com/embed/IvxeJRg4rYg" type="video/mp4" /> -->
+<!--             </video>  -->
+<!--         <h2>
+            Narrated Results Video
+        </h2> --> 
+        <p style="text-align: center; font-size: 22px; font-family: 'Courier New', monospace; font-weight: bold;">Track
+            <span style="font-weight: bold; color: orange;">black </span>
+            <span style="font-weight: bold; color: green;">helicopters</span>
+        </p>
+        <div class="videoWrapper shadow">
+            <iframe width="560" height="315" border-style=none src="https://www.youtube.com/embed/PPI6ewcAEuA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+            
+            <!-- <div class="videocaption" style="margin-bottom: 1rem">
+                <div>
+                    Demo of our Tracking framework for Generic Object scenario.
+                </div>   
+            </div> -->
+        </div>
+
+        <h2 id="introduction">
+            Introduction
+        </h2>
+        <p>
+            In our work, our primary focus is on generic multiple object tracking (GMOT). We begin by introducing the <b><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">Refer-GMOT</span></b> dataset and then present the <b><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">Open-GMOT</span></b> framework. <b><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">Open-GMOT</span></b> has two key innovations: <b>(i) <span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">CS-OD</span></b>, an object detection approach capable of identifying novel generic objects based on textual descriptions; and <b>(ii) <span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">MAC-SORT</span></b>, an object association method that adeptly leverages and balances both motion and appearance for tracking generic objects.
+        </p>
+        <div>
+            <img class="figure" src="media/GMOT-Teaser.jpg" width="100%" alt="Pipeline Overview">
+        </div>
+        
+        <!------------------------------------------------------Section Boundary-------------------------------------------------->
+        <h2 id="method">
+            Methodology
+        </h2>
+        <p style="font-size: 22px;">
+            <b><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">CS-OD</span></b>: To address these limitations of pre-trained VL models, our <span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">CS-OD</span> comprises two modules as follows:
+        </p>
+        <p>
+            <b><u><span style="font-size: 20px;">Module 1: Include-Exclude (IE) Strategy</span></u></b> Using a pre-trained Vision-Language Model (VLM), we've refined object detection in our IE Strategy. It starts with parsing the captions defined in our newly introduced "<span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">Refer-GMOT</span>" dataset into three prompts: general, include, and exclude. Then, these prompts are processed with a VLM to create and classify bounding boxes based on these criteria.
+        </p>
+        <div class="image-container">
+            <div>
+                <img class="figure" src="media/IE-strategy.jpg" width="100%" alt="Pipeline Overview">
+                <p style="text-align: center; font-weight: bold;">Examples to illustrate the efficacy of IE-Strategy. Left: Output from pre-trained VLM. Right: Output from IE-Strategy.</p>
+            </div>
+            <!-- Add more images with captions as needed -->
+        </div>
+
+        <div><br><br></div>
+        <p>
+            <b><u><span style="font-size: 20px;">Module 2:</span></u></b> Long-Short Memory (LSM) Mechanism: To mitigate False Positive
+            (FP) arisingfrom challenges like pose, illumination, and occlusion, we propose a LSM mechanism.
+        </p>
+        <div>
+            <img class="figure" src="media/CSOD.png" width="100%" alt="Pipeline Overview">
+            <p style="text-align: center; font-weight: bold;">Pipeline Overview</p>
+            <br>
+        </div>
+
+        <p>
+            The LSM mechanism acts as a secondary filter to recover TPs that the IE strategy may have incorrectly dismissed by cross-referencing them with the highest confidence detections from the memory bank.
+        </p>
+
+        <div>
+            <br>
+            <img class="figure" src="media/LSM-examples.png" width="100%" alt="Pipeline Overview">
+            <p style="text-align: center; font-weight: bold;">Comparison of with and without LSM mechanism to illustrate the effectivess of LSM mechanism.</p>
+            <br>
+        </div>
+
+        <p>
+            Both the IE strategy and LSM mechanism within the <span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">CS-OD</span> framework play crucial roles in accurately detecting objects, as illustrated in <b>Figures above</b>. Both serve as a filter to increase true positives (TPs) and reduce false positives (FPs).
+        </p>
+
+        <div><br></div>
+
+        <p style="font-size: 22px;">
+            <b><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">MAC-SORT</span></b>:
+        </p>
+        <p>
+            The core idea of our <b><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">MAC-SORT</span></b> method is the effective <b>balance between appearance cost and motion cost (IoU)</b>. This is crucial in GMOT, where objects often look very similar.<br><br>
+Unlike traditional methods like SORT, which rely on motion and struggle with occlusions or object disappearances, <span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">MAC-SORT</span> incorporates <b>advanced techniques</b> for better accuracy. These include considering <b>camera movement and detection confidence</b>.<br><br>
+The innovation in <span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">MAC-SORT</span> lies in its <b>dynamic adjustment</b> of the importance given to visual appearance versus motion cues. This is especially vital in GMOT scenarios with similar-looking objects. By adeptly balancing between motion cue and appearance cue, <span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">MAC-SORT</span> accurately tracks objects in complex environments where appearance alone is insufficient, resulting in a more <b>robust and effective tracking system</b> for highly similar objects.
+        </p>
+          
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p style="text-align: center;">&copy; Website for ECAI2024's submission</p>
+        </div>
+    </footer>
+</body>
+
+</html>
+    
+                   

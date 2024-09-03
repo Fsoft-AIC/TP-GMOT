@@ -1,0 +1,22 @@
+name: tpgmot
+channels:
+  - nvidia
+  - pytorch
+  - fastai
+  - conda-forge
+  - nodefaults # For user with miniconda
+dependencies:
+  - python=3.9
+  # Check https://pytorch.org/get-started/locally/ for version compability
+  - pytorch-cuda=12.1 # Now cudatoolkit is here
+  - pytorch=2.1
+  - cuda-toolkit
+  - torchvision
+  - opencv-python-headless
+  - gxx=12 # https://stackoverflow.com/a/46380601
+  - geos
+  - ninja
+  - cartopy
+  - lap
+  - libstdcxx-ng
+  - numpy

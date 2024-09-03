@@ -1,0 +1,37 @@
+timm==0.6.7
+requests
+ftfy
+regex
+einops
+fvcore
+decord==0.6.0
+iopath
+numpy
+matplotlib
+types-regex
+mayavi
+cartopy
+lap
+
+transformers==4.28.0
+addict
+yapf
+opencv-python
+supervision
+pycocotools
+
+# pip install -r requirements.txt
+ultralytics
+
+gitpython
+tensorboard
+numpy==1.23.1  # otherwise issues with track eval
+
+# StrongSORT ------------------------------------------------------------------
+easydict
+
+# torchreid -------------------------------------------------------------------
+gdown
+
+# OCSORT ----------------------------------------------------------------------
+filterpy
