@@ -33,6 +33,7 @@ To run the tracking algorithm, use the following command:
 ```bash
 python track.py --source .asset/car.avi --main-object 'red car'
 python track.py --source .asset/car.avi --main-object 'red car' --negative-part 'yellow car. blue car'
+python track.py --source .asset/car_w_headlights.avi --main-object 'frontal car' --sub-part 'white headlights'
 ```
 
 - `--source`: Path to the video file.
