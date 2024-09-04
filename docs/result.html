@@ -5,9 +5,9 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <title>
-        Open-GMOT: Open-Vocabulary Generic Multiple Object Tracking with Motion-Appearance Cost (MAC) SORT
+        TP-GMOT: Tracking Generic Multiple Object by Textual Prompt with Motion-Appearance Cost (MAC) SORT
     </title>
-    <meta content="Open-GMOT" property="og:title" />
+    <meta content="TP-GMOT" property="og:title" />
     <meta content="A typical pipeline for multi-object tracking (MOT) is to use a detector for object localization, and following re-identification (re-ID) for object association. This pipeline is partially motivated by recent progress in both object detec- tion and re-ID, and partially motivated by biases in existing tracking datasets, where most objects tend to have distin- guishing appearance and re-ID models are sufficient for es- tablishing associations. In response to such bias, we would like to re-emphasize that methods for multi-object tracking should also work when object appearance is not sufficiently discriminative. To this end, we propose a large-scale dataset for multi-human tracking, where humans have similar appearance, diverse motion and extreme articulation. As the dataset contains mostly group dancing videos, we name it “DanceTrack”. We expect DanceTrack to provide a better platform to develop more MOT algorithms that rely less on visual discrimination and depend more on motion analysis. We benchmark several state-of-the-art trackers on our dataset and observe a significant performance drop on DanceTrack when compared against existing benchmarks." name="description" property="og:description" />
     <meta content="https://github.com/DanceTrack" property="og:url" />
     <meta name="keywords" content="Generic Multi-Object Tracking in Uniform Appearance and Diverse Motion">
@@ -251,11 +251,11 @@
 
 <body>
     <div class="navbar">
-        <h3>Open-GMOT demo website</h3>
+        <h3>TP-GMOT demo website</h3>
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="result.html">Result</a></li>
-            <li><a href="code.html">Code</a></li>
+            <li><a href="https://github.com/Fsoft-AIC/TP-GMOT">Code</a></li>
             <li><a href="dataset.html">Dataset</a></li>
         </ul>
         <script>
@@ -286,7 +286,7 @@
             </h2>
             <div class="n-page video">
                 <p>
-                    We conduct extensive experiments to empirically prove the performance of our proposed <span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">Open-GMOT</span>
+                    We conduct extensive experiments to empirically prove the performance of our proposed <span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">TP-GMOT</span>
                     including both detection with <span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">CS-OD</span> and association with <span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">MAC-SORT</span> in the GMOT problem.
                     Our strategy can help bridging the gap between human's intention and computer understanding to provide
                     flexibility in tracking objects with distinctive characteristics follow input texts.
@@ -319,7 +319,7 @@
             </h2>
         
         <p>
-            We present a detailed comparison through six tables below. The first two tables highlight the distinctions between our innovative <b><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">Open-GMOT</span></b> approach and the existing one-shot GMOT on the <b><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">Refer-GMOT</span> dataset</b>. In the subsequent four tables, we demonstrate the effectiveness and generalization of <b><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">Open-GMOT</span></b> by comparing it with other state-of-the-art fully-supervised MOT methods on <span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">Refer-GMOT40</span>, <b><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">Refer-Animal</span></b>, <b>DanceTrack</b> and <b>MOT20 datasets</b>. We also conduct an ablation study on the parameter <b>&theta; (theta)</b>, which measures the similarity between two vectors and plays a crucial role in adeptly balancing between motion and appearance during tracking using <b><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">MAC-SORT</span>.</b>
+            We present a detailed comparison through six tables below. The first two tables highlight the distinctions between our innovative <b><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">TP-GMOT</span></b> approach and the existing one-shot GMOT on the <b><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">Refer-GMOT</span> dataset</b>. In the subsequent four tables, we demonstrate the effectiveness and generalization of <b><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">TP-GMOT</span></b> by comparing it with other state-of-the-art fully-supervised MOT methods on <span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">Refer-GMOT40</span>, <b><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">Refer-Animal</span></b>, <b>DanceTrack</b> and <b>MOT20 datasets</b>. We also conduct an ablation study on the parameter <b>&theta; (theta)</b>, which measures the similarity between two vectors and plays a crucial role in adeptly balancing between motion and appearance during tracking using <b><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">MAC-SORT</span>.</b>
         </p>
 
         <table class="gmot-tracking-comparison">
@@ -590,7 +590,7 @@
         
 
         <table class="gmot-ablation-study">
-            <caption><u>Ablation study of generalizability</u> of <strong><code><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">Open-GMOT</span></code></strong> framework on <i>DanceTrack-valset</i> with <u>MOT task</u>. We compare our <strong><code><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">MAC-SORT</span></code></strong> and <strong><code><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">CS-OD</span></code></strong> with other <i>fully-supervised MOT</i> methods, which use YOLOX trained on DanceTrack-trainset as their object detector. Deep-OCOSRT denotes the reported results in the paper whereas Deep-OCOSRT&dagger; presents the reproduced results with the best settings suggested by the authors on our machine with the same object detector. It is important to note that these existing fully-supervised methods are limited in their ability to handle category-agnostic tracking.</caption>
+            <caption><u>Ablation study of generalizability</u> of <strong><code><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">TP-GMOT</span></code></strong> framework on <i>DanceTrack-valset</i> with <u>MOT task</u>. We compare our <strong><code><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">MAC-SORT</span></code></strong> and <strong><code><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">CS-OD</span></code></strong> with other <i>fully-supervised MOT</i> methods, which use YOLOX trained on DanceTrack-trainset as their object detector. Deep-OCOSRT denotes the reported results in the paper whereas Deep-OCOSRT&dagger; presents the reproduced results with the best settings suggested by the authors on our machine with the same object detector. It is important to note that these existing fully-supervised methods are limited in their ability to handle category-agnostic tracking.</caption>
             <thead>
                 <tr>
                     <th rowspan="2"><strong>Trackers</strong></th>

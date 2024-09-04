@@ -5,9 +5,9 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <title>
-        Open-GMOT: Open-Vocabulary Generic Multiple Object Tracking with Motion-Appearance Cost (MAC) SORT
+        TP-GMOT: Tracking Generic Multiple Object by Textual Prompt with Motion-Appearance Cost (MAC) SORT
     </title>
-    <meta content="Open-GMOT" property="og:title" />
+    <meta content="TP-GMOT" property="og:title" />
     <meta content="A typical pipeline for multi-object tracking (MOT) is to use a detector for object localization, and following re-identification (re-ID) for object association. This pipeline is partially motivated by recent progress in both object detec- tion and re-ID, and partially motivated by biases in existing tracking datasets, where most objects tend to have distin- guishing appearance and re-ID models are sufficient for es- tablishing associations. In response to such bias, we would like to re-emphasize that methods for multi-object tracking should also work when object appearance is not sufficiently discriminative. To this end, we propose a large-scale dataset for multi-human tracking, where humans have similar appearance, diverse motion and extreme articulation. As the dataset contains mostly group dancing videos, we name it “DanceTrack”. We expect DanceTrack to provide a better platform to develop more MOT algorithms that rely less on visual discrimination and depend more on motion analysis. We benchmark several state-of-the-art trackers on our dataset and observe a significant performance drop on DanceTrack when compared against existing benchmarks." name="description" property="og:description" />
     <meta content="https://github.com/DanceTrack" property="og:url" />
     <meta name="keywords" content="Generic Multi-Object Tracking in Uniform Appearance and Diverse Motion">
@@ -21,11 +21,11 @@
 
 <body>
     <div class="navbar">
-        <h3>Open-GMOT demo website</h3>
+        <h3>TP-GMOT demo website</h3>
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="result.html">Result</a></li>
-            <li><a href="code.html">Code</a></li>
+            <li><a href="https://github.com/Fsoft-AIC/TP-GMOT">Code</a></li>
             <li><a href="dataset.html">Dataset</a></li>
         </ul>
         <script>
@@ -51,36 +51,46 @@
 
     <div class="n-title">
         <h1>
-            Open-GMOT: Open-Vocabulary Generic Multiple Object Tracking with Motion-Appearance Cost (MAC) SORT
+            TP-GMOT: Tracking Generic Multiple Object by Textual Prompt with Motion-Appearance Cost (MAC) SORT
         </h1>
     </div>
     <div class="n-byline">
         <div class="byline">
             <ul class="authors">
                 <li>
+                    <a href="https://scholar.google.com/citations?user=D2CivSMAAAAJ&hl=en" target="_blank">Duy Le Dinh Anh</a><sup>1</sup>
+                </li>
+                <li>
+                    <a href="https://scholar.google.com/citations?user=SQXHftAAAAAJ&hl=en" target="_blank">Kim Hoang Tran</a><sup>2</sup>
+                </li>
+                <li>
+                    <a href="https://uark-aicv.github.io/team/ngan_le" target="_blank">Ngan Hoang Le</a><sup>3</sup>
+                </li>
+            </ul>
+            <ul class="authors affiliations">
+                <li>
+                    <sup>
+                        1
+                    </sup>
+                    FPT Software AI Center, Vietnam
+                </li>
+                <li>
+                    <sup>
+                        2
+                    </sup>
+                    Department of Computer Science, University of Arkansas, USA
+                </li>
+            </ul>
+            <ul class="authors">
+                <li>
                     This work has been accepted in ECAI 2024
                 </li>
             </ul>
             <p style="text-align: center; color: slategray">PDF version will be published soon</p>
-            <!-- <ul class="authors affiliations">
-                <li>
-                    Anonymous
-                </li>
-            </ul> -->
             <ul class="authors links">
                 <!-- <li>
                     <a href="" target="_blank">
                         <button disabled class="btn"><i class="fa fa-file-pdf"></i> Paper</button>
-                    </a>
-                </li>
-                <li>
-                    <a href="" target="_blank">
-                        <button disabled class="btn"><i class="fab fa-github"></i> Code</button>
-                    </a>
-                </li>
-                <li>
-                    <a href="" target="_blank">
-                        <button disabled class="btn"><i class="fab fa-github"></i> Dataset</button>
                     </a>
                 </li>  -->
                 <li>
@@ -122,7 +132,7 @@
             Introduction
         </h2>
         <p>
-            In our work, our primary focus is on generic multiple object tracking (GMOT). We begin by introducing the <b><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">Refer-GMOT</span></b> dataset and then present the <b><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">Open-GMOT</span></b> framework. <b><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">Open-GMOT</span></b> has two key innovations: <b>(i) <span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">CS-OD</span></b>, an object detection approach capable of identifying novel generic objects based on textual descriptions; and <b>(ii) <span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">MAC-SORT</span></b>, an object association method that adeptly leverages and balances both motion and appearance for tracking generic objects.
+            In our work, our primary focus is on generic multiple object tracking (GMOT). We begin by introducing the <b><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">Refer-GMOT</span></b> dataset and then present the <b><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">TP-GMOT</span></b> framework. <b><span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">TP-GMOT</span></b> has two key innovations: <b>(i) <span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">CS-OD</span></b>, an object detection approach capable of identifying novel generic objects based on textual descriptions; and <b>(ii) <span style=" font-weight: bold; font-family: 'Courier New', Courier, monospace;">MAC-SORT</span></b>, an object association method that adeptly leverages and balances both motion and appearance for tracking generic objects.
         </p>
         <div>
             <img class="figure" src="media/GMOT-Teaser.jpg" width="100%" alt="Pipeline Overview">

@@ -1,1 +1,1 @@
-# rebuttal repo for Open-GMOT (ECAI24)
+# rebuttal repo for TP-GMOT (ECAI24)
