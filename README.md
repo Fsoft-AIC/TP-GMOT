@@ -1,5 +1,7 @@
 # TP-GMOT: Tracking Generic Multiple Object by Textual Prompt with Motion-Appearance Cost (MAC) SORT
 
+[![arxiv paper](https://img.shields.io/badge/Project-Page-green)](https://fsoft-aic.github.io/TP-GMOT/)
+
 ## Overview
 
 This repository contains the implementation for **TP-GMOT: Tracking Generic Multiple Object by Textual Prompt with Motion-Appearance Cost (MAC) SORT**, which was accepted at **ECAI 2024**. TP-GMOT provides an innovative approach to tracking multiple objects in video sequences using textual prompts and a novel motion-appearance cost function.
